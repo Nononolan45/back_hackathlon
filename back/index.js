@@ -1,12 +1,19 @@
-const http = require('http');
+const express = require('express');
+const server = express();
+
 
 const hostname = '0.0.0.0';
 const PORT = 3000;
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World!');
-});
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://mongo/apinodejs');
+
+const bodyParser = require('body-parser');
+server.use(bodyParser.urlencoded());
+server.use(bodyParser.json());
+
+
+const postRoute = require('./routes/postRoute');
+postRoute(server);
 
 server.listen(PORT, hostname);
