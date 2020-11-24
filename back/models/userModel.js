@@ -13,6 +13,10 @@ let userSchema = new Schema({
         type: String,
         required: "Le mot de passe est requis'"
     },
+    name: {
+        type: String,
+        required: "Le nom est requis"
+    },
     created_at: {
         type: Date,
         default: Date.now

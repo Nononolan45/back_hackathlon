@@ -27,7 +27,7 @@ exports.login_an_user = (req, res) => {
             }
             else {
                 if (user.password = req.body.password) {
-                    jwt.sign({ email: user.email, role: 'user' },
+                    jwt.sign({ email: user.email, role: 'user', name: user.name },
                         process.env.JWT_SECRET,
                         { expiresIn: '30 days' },
                         (error, token) => {

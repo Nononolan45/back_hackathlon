@@ -16,7 +16,7 @@ exports.list_all_comments = (req, res) => {
 }
 
 exports.create_a_comment = (req, res) => {
-    Post.findById(req.params.post_id, (error, post) => {
+    Post.findById(req.params.post_id, (error, comment) => {
         if (error) {
             res.status(500);
             res.json({ message: "Erreur serveur." })

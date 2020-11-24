@@ -5,7 +5,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.verify_token = (req, res, next) => {
     let token = req.headers['authorization'];
-    console.log(token);
 
     if(typeof token != 'undefined'){
         jwt.verify(token, JWT_SECRET, (error) => {
@@ -20,4 +19,11 @@ exports.verify_token = (req, res, next) => {
         res.status(403);
         res.json({message: 'Accès interdit'});
     }
+}
+
+exports.addNameToContent = (req, res, next) => {
+    let token = req.headers['authorization'];
+    let decodeToken = jwt.decode(token);
+    req.body.name = decodeToken.name;
+    next();
 }
