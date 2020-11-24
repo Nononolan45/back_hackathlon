@@ -1,4 +1,6 @@
 const Comment = require('../models/commentModel');
+const Post = require('../models/postModel');
+
 
 exports.list_all_comments = (req, res) => {
     Comment.find({ post_id: req.params.post_id }, (error, comments) => {
@@ -28,6 +30,17 @@ exports.create_a_comment = (req, res) => {
 }
 
 exports.get_a_comment = (req, res) => {
+    Post.findById(req.params.post_id, (error, post) => {
+        if (error) {
+            res.status(500);
+            res.json({ message: "Erreur serveur." })
+        }
+        else {
+            res.status(200);
+            res.json(post);
+        }
+    });
+
     Comment.findById(req.params.comment_id, (error, comment) => {
         if (error) {
             res.status(500);
