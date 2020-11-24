@@ -14,4 +14,7 @@ services:
       - ./back:/app
     depends_on: 
       - mongo
+    env_file:
+      - .env
+
 
