@@ -54,14 +54,14 @@ exports.update_a_post = (req, res) => {
 }
 
 exports.delete_a_post = (req, res) => {
-    Post.findByIdAndDelete({ "_id": req.params.post_id }, (error) => {
+    Post.findByIdAndRemove(req.params.post_id, (error) => {
         if (error) {
             res.status(500);
             res.json({ message: "Erreur serveur." })
         }
         else {
             res.status(200);
-            res.end();
+            res.json({message: 'Article suprrimé'});
         }
     })
 }

@@ -11,3 +11,4 @@ module.exports = (server) => {
         .put(postController.update_a_post)
         .delete(postController.delete_a_post);
 }
+
