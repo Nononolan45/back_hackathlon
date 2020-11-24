@@ -6,7 +6,8 @@ let userSchema = new Schema({
     email: {
         type: String,
         required: "L'email est requis",
-        unique: true
+        unique: true,
+        match : [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Ceci n\'est pas un email valide']
     },
     password: {
         type: String,
