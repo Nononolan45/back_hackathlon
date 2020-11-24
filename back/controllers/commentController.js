@@ -16,30 +16,31 @@ exports.list_all_comments = (req, res) => {
 }
 
 exports.create_a_comment = (req, res) => {
-    let new_comment = new Comment({ post_id: req.params.post_id, ...req.body });
-    new_comment.save((error, comment) => {
-        if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
-        }
-        else {
-            res.status(201);
-            res.json(comment);
-        }
-    });
-}
-
-exports.get_a_comment = (req, res) => {
     Post.findById(req.params.post_id, (error, post) => {
         if (error) {
             res.status(500);
             res.json({ message: "Erreur serveur." })
         }
         else {
-            res.status(200);
-            res.json(post);
+            let new_comment = new Comment({ post_id: req.params.post_id, ...req.body });
+            new_comment.save((error, comment) => {
+                if (error) {
+                    res.status(500);
+                    res.json({ message: "Erreur serveur." })
+                }
+                else {
+                    res.status(201);
+                    res.json(comment);
+                }
+            });
         }
     });
+
+
+}
+
+exports.get_a_comment = (req, res) => {
+
 
     Comment.findById(req.params.comment_id, (error, comment) => {
         if (error) {

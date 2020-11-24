@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const loripsum = require('../services/loripsum');
 
 exports.list_all_posts = (req, res) => {
     Post.find({}, (error, posts) => {
@@ -13,8 +14,11 @@ exports.list_all_posts = (req, res) => {
     });
 }
 
-exports.create_a_post = (req, res) => {
+exports.create_a_post = async (req, res) => {
     let new_post = new Post(req.body);
+    if (!new_post.content) {
+        new_post.content = await loripsum.getTextToApiLoripsum(res);
+    }
     new_post.save((error, post) => {
         if (error) {
             res.status(500);
