@@ -1,5 +1,5 @@
 const Post = require('../models/postModel');
-const loripsum = require('../services/loripsum');
+const loripsum = require('../providers/loripsum');
 
 exports.list_all_posts = (req, res) => {
     Post.find({}, (error, posts) => {
