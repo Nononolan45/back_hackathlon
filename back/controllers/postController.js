@@ -41,7 +41,7 @@ exports.get_a_post = (req, res) => {
 }
 
 exports.update_a_post = (req, res) => {
-    Post.findOneAndUpdate({ "_id": req.params.post_id }, req.body, { new: true, useFindAndModify: false }, (error, post) => {
+    Post.findByIdAndUpdate(req.params.post_id, req.body, { new: true, useFindAndModify: false }, (error, post) => {
         if (error) {
             res.status(500);
             res.json({ message: "Erreur serveur." })
@@ -61,7 +61,7 @@ exports.delete_a_post = (req, res) => {
         }
         else {
             res.status(200);
-            res.json({message: 'Article suprrimé'});
+            res.json({ message: 'Article suprrimé' });
         }
     })
 }
