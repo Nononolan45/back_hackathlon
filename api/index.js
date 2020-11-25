@@ -13,11 +13,8 @@ server.use(bodyParser.urlencoded());
 server.use(bodyParser.json());
 
 
-const postRoute = require('./routes/postRoute');
-postRoute(server);
-
-const commentRoute = require('./routes/commentRoute');
-commentRoute(server);
+const memberRoute = require('./routes/memberRoute');
+memberRoute(server);
 
 const userRoute = require('./routes/userRoute');
 userRoute(server);
