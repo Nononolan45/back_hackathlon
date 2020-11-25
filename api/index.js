@@ -22,11 +22,7 @@ schoolRoute(server);
 const projectRoute = require('./routes/projectRoute');
 projectRoute(server);
 
-/*
-const commentRoute = require('./routes/commentRoute');
-commentRoute(server);
-
 const userRoute = require('./routes/userRoute');
-userRoute(server);*/
+userRoute(server);
 
 server.listen(PORT, hostname);
