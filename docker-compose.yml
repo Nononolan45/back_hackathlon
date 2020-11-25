@@ -7,11 +7,11 @@ services:
       - "27017:27017"
   api: 
     container_name: api
-    build: ./back
+    build: ./api
     ports: 
       - "3000:3000"
     volumes:
-      - ./back:/app
+      - ./api:/app
     depends_on: 
       - mongo
     env_file:
