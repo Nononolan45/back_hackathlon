@@ -15,6 +15,8 @@ exports.list_all_schools = (req, res) => {
 }
 
 exports.create_a_school = (req, res) => {
+    console.log(req.body)
+
     let new_school = new School(req.body);
     new_school.save((error, school) => {
         if (error) {
