@@ -15,7 +15,7 @@ let memberSchema = new Schema({
         type: String,
         required: "L'email est requis",
         unique: true,
-        match : [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'L\email ne respecte pas le format demandé.']
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'L\email ne respecte pas le format demandé.']
     },
     phone_number: {
         type: String,

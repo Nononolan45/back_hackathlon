@@ -15,7 +15,7 @@ let projectSchema = new Schema({
         type: String,
         required: "La réponse est requise"
     },
-    response_four: {
+    response_four: { 
         type: String,
         required: "La réponse est requise"
     },
@@ -27,6 +27,11 @@ let projectSchema = new Schema({
         type: String,
         required: "A propos requis"
         
+    },
+    name: {
+        type: String,
+        required: "Le nom du projet est requis", 
+        unique: true
     },
     school_id: {
         type: String,
