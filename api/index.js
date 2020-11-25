@@ -13,13 +13,13 @@ server.use(bodyParser.urlencoded());
 server.use(bodyParser.json());
 
 
-const postRoute = require('./routes/postRoute');
-postRoute(server);
-
+const schoolRoute = require('./routes/schoolRoute');
+schoolRoute(server);
+/*
 const commentRoute = require('./routes/commentRoute');
 commentRoute(server);
 
 const userRoute = require('./routes/userRoute');
-userRoute(server);
+userRoute(server);*/
 
 server.listen(PORT, hostname);
