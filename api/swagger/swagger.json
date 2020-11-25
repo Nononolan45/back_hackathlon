@@ -89,7 +89,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/definitions/arraySchool"
+                  "$ref": "#/definitions/schoolList"
                 }
               }
             }
@@ -113,9 +113,6 @@
           "schools"
         ],
         "summary": "Modifier une école",
-        "produces": [
-          "application/json"
-        ],
         "requestBody": {
           "content": {
             "application/x-www-form-urlencoded": {
@@ -124,11 +121,13 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Lieu de l'école"
+                    "description": "Lieu de l'école",
+                    "required": false
                   },
                   "location": {
                     "type": "string",
-                    "description": "Le nom de l'école"
+                    "description": "Le nom de l'école",
+                    "required": false
                   }
                 },
                 "required": [
@@ -193,15 +192,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Confirmation de la suppression",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/definitions/school"
-                }
-              }
-            }
+          "200": {
+            "description": "Confirmation de la suppression"
           },
           "500": {
             "description": "Retour d'erreur",
@@ -257,6 +249,264 @@
           }
         }
       }
+    },
+    "/schools/{school_id}/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Créer un utilisateur",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nom utilisateur",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email utilisateur",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Mot de passe utilisateur",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Confirmation de la création et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/school"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Récuperer la liste des  utilisateurs",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/userList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Modifier un utilisateur",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nom utilisateur",
+                    "required": false
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email utilisateur",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Mot de passe utilisateur",
+                    "required": false
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la modification et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Supprimer un utilisateur",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la suppression"
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Récupérer un utilisateur",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -277,10 +527,39 @@
         }
       }
     },
-    "arraySchool": {
+    "schoolList": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/school"
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "school_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "userList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/user"
       }
     },
     "errorApi": {
