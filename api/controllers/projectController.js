@@ -85,7 +85,6 @@ exports.delete_a_project = (req, res) => {
                 routeProvider.generateError(500, 'Erreur serveur', res);
             }
             else {
-                res.status(200);
                 routeProvider.generateSuccess(200, { message: 'Projet supprimé' }, res);
             }
         })
