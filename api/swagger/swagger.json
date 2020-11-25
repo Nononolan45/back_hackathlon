@@ -1,0 +1,620 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API WebETL",
+      "version": "0.1",
+      "title": "WebETL API Doc",
+      "contact": {
+        "email": "contact@e-major.fr"
+      }
+    },
+    "tags": [
+      {
+        "name": "upload",
+        "description": "Tout ce qui concerne l'envoi de fichier"
+      },
+      {
+        "name": "convert",
+        "description": "Tout ce qui concerne les conversion de format de fichier"
+      },
+      {
+        "name": "users",
+        "description": "Tout ce qui concerne les utilisateurs"
+      },
+      {
+        "name": "suppliers",
+        "description": "Tout ce qui concerne les fournisseurs"
+      },
+      {
+        "name": "json",
+        "description": "Tout ce qui concerne les fichiers d'interface json"
+      },
+      {
+        "name": "session",
+        "description": "Tout ce qui concerne la session "
+      }
+    ],
+    "paths": {
+      "/upload": {
+        "post": {
+          "tags": [
+            "upload"
+          ],
+          "summary": "Transferer un fichier csv, xls ou xlsx",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "file",
+              "type": "file",
+              "description": "Le fichier a téléchargé.",
+              "required": false
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Fichier inexistant"
+            },
+            "406": {
+              "description": "Taille du fichier soit nulle ou supérieur à 40 mo"
+            },
+            "415": {
+              "description": "Format non pris en charge"
+            }
+          }
+        }
+      },
+      "/convert/csv-to-json": {
+        "post": {
+          "tags": [
+            "convert"
+          ],
+          "summary": "Transformation du fichier csv en json",
+          "description": "Retourne le json ",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier à convertir.",
+              "required": false
+            },
+            {
+              "in": "formData",
+              "name": "separator",
+              "type": "string",
+              "description": "Le délimiteur des données du fichier csv.",
+              "required": false
+            },
+            {
+              "in": "formData",
+              "name": "quote",
+              "type": "string",
+              "description": "Le caractère entourant la donnée.",
+              "required": false
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/json"
+              }
+            },
+            "400": {
+              "description": "Fichier /paramètres inexistant, se referer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/convert/excel-to-json": {
+        "post": {
+          "tags": [
+            "convert"
+          ],
+          "summary": "Transformation du fichier excel en json",
+          "description": "Retourne le json ",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier à convertir.",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/json"
+              }
+            },
+            "400": {
+              "description": "Fichier /paramètres inexistant, se referer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/json/getfileinfo": {
+        "post": {
+          "tags": [
+            "json"
+          ],
+          "summary": "Obtention des informations du fichier json",
+          "description": "Retourne le json avec sheetName et un tableau avec les headers ",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier dont on souhaite les informations ",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/getFileInfo"
+              }
+            },
+            "500": {
+              "description": "Fichier ou dossier non trouvé"
+            }
+          }
+        }
+      },
+      "/json/sheets": {
+        "post": {
+          "tags": [
+            "json"
+          ],
+          "summary": "Obtention des noms de feuilles du fichier json",
+          "description": "Retourne le json avec sheetName et activation par default ",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier dont on souhaite les informations ",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "500": {
+              "description": "Fichier ou dossier non trouvé"
+            }
+          }
+        }
+      },
+      "/json/headers": {
+        "post": {
+          "tags": [
+            "json"
+          ],
+          "summary": "Obtention liste de feuille avec une proprieté headers",
+          "description": "Retourne liste de feuille avec une proprieté headers",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier dont on souhaite les informations ",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "params",
+              "type": "string",
+              "description": "Tableau d'objets contenant le nom de la feuille et la ligne où se situe les headers",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Fichier /paramètres inexistant, se referer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/json/sheetPreview": {
+        "post": {
+          "tags": [
+            "json"
+          ],
+          "summary": "Obtention d'une selection de données d'une feuille",
+          "description": "Retourne d'une selection de données d'une feuille",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du fichier dont on souhaite les informations ",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "sheetName",
+              "type": "string",
+              "description": "Le nom de la feuille",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "quantite",
+              "type": "integer",
+              "description": "La quantité de donnée",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "index",
+              "type": "integer",
+              "description": "L'index de debut",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Fichier /paramètres inexistant, se referer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/session/initSession": {
+        "post": {
+          "tags": [
+            "session"
+          ],
+          "summary": "Initialisation d'une session pour un fournisseur",
+          "description": "Retourne un statut 201",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "email",
+              "type": "string",
+              "description": "L'email du fournisseur",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom de la session ",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "data",
+              "type": "string",
+              "description": "Le json de session à stocker",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "405": {
+              "description": "Fournisseur dont on souhaite initialisé une session est inexistant"
+            },
+            "409": {
+              "description": "Duplication keys " 
+            },
+            "500": {
+              "description": "Se référer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/session/listSession": {
+        "post": {
+          "tags": [
+            "session"
+          ],
+          "summary": "Lister la/les  session(s) pour un fournisseur",
+          "description": "Retourne un tableau d'objets comprenant le nom de l'id de chacune",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "email",
+              "type": "string",
+              "description": "L'email du fournisseur",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "405": {
+              "description": "Se référer au json d'erreur"
+            }
+          }
+        }
+      },
+      "/session/loadSession": {
+        "post": {
+          "tags": [
+            "session"
+          ],
+          "summary": "Charge la session choisi par le fournisseur",
+          "description": "Retourne la session",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "id",
+              "type": "string",
+              "description": "L'identifiant de la session",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Aucune session ne correspond à l'id en paramètre"
+            },
+            "412": {
+              "description": "Le format de l'identifiant unique ne corespond pas"
+            }
+          }
+        }
+      },
+      "/session/updateSession": {
+        "post": {
+          "tags": [
+            "session"
+          ],
+          "summary": "Mise à jour de la session identifié",
+          "description": "Retourne statut 201",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "id",
+              "type": "string",
+              "description": "L'identifiant de la session",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "data",
+              "type": "string",
+              "description": "La nouvelle donnée de la session",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Aucune session ne correspond à l'id en paramètre"
+            },
+            "412": {
+              "description": "Le format de l'identifiant unique ne corespond pas"
+            }
+          }
+        }
+      },
+      "/session/deleteSession": {
+        "post": {
+          "tags": [
+            "session"
+          ],
+          "summary": "Suppression de la session identifié",
+          "description": "Retourne statut 201",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "session",
+              "type": "string",
+              "description": "L'identifiant de la session",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "email",
+              "type": "string",
+              "description": "L'email du fournisseur",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK"
+            },
+            "400": {
+              "description": "Aucune session ne correspond à l'id en paramètre"
+            }
+          }
+        }
+      },
+      "/session/clean": {
+        "post": {
+          "tags": [
+            "json"
+          ],
+          "summary": "Standardisation du Json",
+          "description": "Retourne le json avec la selection de la ligne de headers et une selection de données et efface  les lignes et données vides",
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "configuration",
+              "schema": {
+                "$ref": "#/definitions/configuration"
+              },
+              "description": "Le json du fichier de configuration. Voir le modèle dans la rubrique \"models\"",
+              "required": true
+            },
+            {
+              "in": "formData",
+              "name": "name",
+              "type": "string",
+              "description": "Le nom du json à standardiser",
+              "required": true
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/json"
+              }
+            },
+            "400": {
+              "description": "Fichier /paramètres inexistant, se referer au json d'erreur"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "data": {
+        "type": "string"
+      },
+      "getFileInfo": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "sheetName": {
+              "type": "string"
+            },
+            "headers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "json": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "header": {
+              "$ref": "#/definitions/data"
+            }
+          }
+        }
+      },
+      "configuration": {
+        "type": "object",
+        "properties": {
+          "sheetName": {
+            "type": "object",
+            "properties": {
+              "LineHeader": {
+                "type": "string"
+              },
+              "LinesData": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
