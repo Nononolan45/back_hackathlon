@@ -1,15 +1,13 @@
 const School = require('../models/schoolModel');
-
+const routeProvider = require('../providers/route');
 
 exports.list_all_schools = (req, res) => {
     School.find({}, (error, schools) => {
         if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
+            routeProvider.generateError(500, 'Erreur serveur', res);
         }
         else {
-            res.status(200);
-            res.json(schools);
+            routeProvider.generateSuccess(200, schools, res);
         }
     });
 }
@@ -18,12 +16,10 @@ exports.create_a_school = (req, res) => {
     let new_school = new School(req.body);
     new_school.save((error, school) => {
         if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
+            routeProvider.generateError(500, 'Erreur serveur', res);
         }
         else {
-            res.status(201);
-            res.json(school);
+            routeProvider.generateSuccess(201, school, res);
         }
     });
 }
@@ -31,12 +27,10 @@ exports.create_a_school = (req, res) => {
 exports.get_a_school = (req, res) => {
     School.findById(req.params.school_id, (error, school) => {
         if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
+            routeProvider.generateError(500, 'Erreur serveur', res);
         }
         else {
-            res.status(200);
-            res.json(school);
+            routeProvider.generateSuccess(200, school, res);
         }
     });
 }
@@ -44,12 +38,10 @@ exports.get_a_school = (req, res) => {
 exports.update_a_school = (req, res) => {
     School.findByIdAndUpdate(req.params.school_id, req.body, { new: true, useFindAndModify: false }, (error, school) => {
         if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
+            routeProvider.generateError(500, 'Erreur serveur', res);
         }
         else {
-            res.status(200);
-            res.json(school);
+            routeProvider.generateSuccess(200, school, res);
         }
     });
 }
@@ -57,12 +49,10 @@ exports.update_a_school = (req, res) => {
 exports.delete_a_school = (req, res) => {
     School.findByIdAndRemove(req.params.school_id, (error) => {
         if (error) {
-            res.status(500);
-            res.json({ message: "Erreur serveur." })
+            routeProvider.generateError(500, 'Erreur serveur', res);
         }
         else {
-            res.status(200);
-            res.json({ message: 'School suprrimé' });
+            routeProvider.generateSuccess(200, 'Ecole supprimé', res);
         }
     })
 }
