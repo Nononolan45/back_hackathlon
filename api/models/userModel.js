@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcryptProvider = require('../providers/bcrypt')
 const Schema = mongoose.Schema;
 
 let userSchema = new Schema({
@@ -20,5 +21,11 @@ let userSchema = new Schema({
         type: String
     }
 });
+
+
+userSchema.pre('save', function (next) {
+    this.password = bcryptProvider.cryptPassword(this.password, 10);
+    next();
+})
 
 module.exports = mongoose.model('User', userSchema);
