@@ -1,0 +1,1198 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "API Hackathlon",
+    "version": "0.1",
+    "title": "Documentation de l'API"
+  },
+  "tags": [
+    {
+      "name": "schools",
+      "description": "A propos des écoles"
+    },
+    {
+      "name": "users",
+      "description": "A propos des utilisateurs"
+    },
+    {
+      "name": "members",
+      "description": "A propos des utilisateurs"
+    },
+    {
+      "name": "projects",
+      "description": "A propos des projets"
+    }
+  ],
+  "paths": {
+    "/schools": {
+      "post": {
+        "tags": [
+          "schools"
+        ],
+        "summary": "Créer une école",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Lieu de l'école",
+                    "required": true
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "Le nom de l'école",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Confirmation de la création et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/school"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "schools"
+        ],
+        "summary": "Récuperer la liste des écoles",
+        "responses": {
+          "200": {
+            "description": "Récupération de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/schoolList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schools/{school_id}": {
+      "put": {
+        "tags": [
+          "schools"
+        ],
+        "summary": "Modifier une école",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Lieu de l'école",
+                    "required": false
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "Le nom de l'école",
+                    "required": false
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la modification et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/school"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "schools"
+        ],
+        "summary": "Supprimer une école",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la suppression"
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "schools"
+        ],
+        "summary": "Récuperer une école",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/school"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schools/{school_id}/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Créer un utilisateur",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nom utilisateur",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email utilisateur",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Mot de passe utilisateur",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Confirmation de la création et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/school"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Récuperer la liste des  utilisateurs",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/userList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Modifier un utilisateur",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nom utilisateur",
+                    "required": false
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email utilisateur",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Mot de passe utilisateur",
+                    "required": false
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la modification et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Supprimer un utilisateur",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la suppression"
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Récupérer un utilisateur",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/user"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schools/{school_id}/projects": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Créer un projet",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "response_one": {
+                    "type": "string",
+                    "description": "Première réponse",
+                    "required": true
+                  },
+                  "response_two": {
+                    "type": "string",
+                    "description": "Seconde réponse",
+                    "required": true
+                  },
+                  "response_three": {
+                    "type": "string",
+                    "description": "Troisième réponse",
+                    "required": true
+                  },
+                  "response_four": {
+                    "type": "string",
+                    "description": "Quatrième réponse",
+                    "required": true
+                  },
+                  "response_five": {
+                    "type": "string",
+                    "description": "Cinquième réponse",
+                    "required": true
+                  },
+                  "about": {
+                    "type": "string",
+                    "description": "A propos de l'équipe",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Nom de l'équipe",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Confirmation de la création et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/project"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Récuperer la liste des  projets",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/projectList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}": {
+      "put": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Modifier un projet",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "response_one": {
+                    "type": "string",
+                    "description": "Première réponse",
+                    "required": true
+                  },
+                  "response_two": {
+                    "type": "string",
+                    "description": "Seconde réponse",
+                    "required": true
+                  },
+                  "response_three": {
+                    "type": "string",
+                    "description": "Troisième réponse",
+                    "required": true
+                  },
+                  "response_four": {
+                    "type": "string",
+                    "description": "Quatrième réponse",
+                    "required": true
+                  },
+                  "response_five": {
+                    "type": "string",
+                    "description": "Cinquième réponse",
+                    "required": true
+                  },
+                  "about": {
+                    "type": "string",
+                    "description": "A propos de l'équipe",
+                    "required": true
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Nom de l'équipe",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du projet "
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la modification et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/project"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Supprimer un projet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "projet_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du projet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la suppression"
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Récupérer un projet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du projet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/project"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{project_id}/members": {
+      "post": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Créer un membre",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "last_name": {
+                    "type": "string",
+                    "description": "Nom de famille",
+                    "required": true
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "description": "Prénom",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email",
+                    "required": true
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Numéro de teléphone au format : +33123456789",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du projet"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Confirmation de la création et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/member"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Récuperer la liste des  membres d'un projet ",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du projet"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/memberList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/members/{member_id}": {
+      "put": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Modifier un membre du projet",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "last_name": {
+                    "type": "string",
+                    "description": "Nom de famille",
+                    "required": true
+                  },
+                  "first_name": {
+                    "type": "string",
+                    "description": "Prénom",
+                    "required": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email",
+                    "required": true
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Numéro de teléphone au format : +33123456789",
+                    "required": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "location"
+                ]
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du membre "
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la modification et retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/member"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Supprimer un un membre du projet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du membre"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation de la suppression"
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "members"
+        ],
+        "summary": "Récupérer un membre du projet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant du membre"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/member"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "school": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "schoolList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/school"
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "school_id": {
+          "type": "string"
+        },
+        "__v": {
+          "type": "number"
+        }
+      }
+    },
+    "userList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/user"
+      }
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "response_one": {
+          "type": "string"
+        },
+        "response_two": {
+          "type": "string"
+        },
+        "response_three": {
+          "type": "string"
+        },
+        "response_four": {
+          "type": "string"
+        },
+        "response_five": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "school_id": {
+          "type": "string"
+        }
+      }
+    },
+    "projectList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/project"
+      }
+    },
+    "member": {
+      "type": "object",
+      "properties": {
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string"
+        }
+      }
+    },
+    "memberList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/member"
+      }
+    },
+    "errorApi": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
