@@ -22,6 +22,7 @@ exports.create_a_member = (req, res) => {
         req.params.project_id,
         (error) => {
             if (error) {
+                
                 routeProvider.generateError(500, 'Erreur serveur', res);
             }
             else {
@@ -30,9 +31,9 @@ exports.create_a_member = (req, res) => {
                         project_id: req.params.project_id,
                         ...req.body
                     });
-                new_member.save(
-                    (error, member) => {
-                        if (error) {
+                    new_member.save(
+                        (error, member) => {
+                            if (error) {
                             routeProvider.generateError(500, 'Erreur serveur', res);
                         }
                         else {

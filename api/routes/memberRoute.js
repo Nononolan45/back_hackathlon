@@ -3,7 +3,7 @@ module.exports = (server) => {
     const memberMiddleware = require('../middleware/memberMiddleware');
 
 
-    server.route('/members')
+    server.route('/members/:member_id')
         .get(memberController.get_a_member)
         .put(memberController.update_a_member)
         .delete(memberController.delete_a_member);
