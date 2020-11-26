@@ -9,4 +9,6 @@ module.exports = (server) => {
         .get(userController.get_an_user)
         .put(userController.update_an_user)
         .delete(userController.delete_an_user);
+    
+    server.route('/users/login').post(userController.login_an_user);
 }
