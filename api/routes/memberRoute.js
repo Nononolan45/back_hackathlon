@@ -1,6 +1,8 @@
 module.exports = (server) => {
     const memberController = require('../controllers/memberController');
     const memberMiddleware = require('../middleware/memberMiddleware');
+    const projectMiddleware = require('../middleware/projectMiddleware');
+    const jwtMiddleware = require('../middleware/jwtMiddleware');
 
 
     server.route('/members/:member_id')
@@ -9,7 +11,7 @@ module.exports = (server) => {
         .delete(memberController.delete_a_member);
 
     server.route('/projects/:project_id/members')
-        .get(memberController.list_all_members)
+        .get(jwtMiddleware.verify_token, projectMiddleware.verifyUsserIsAttachedToSchool, memberController.list_all_members)
         .post(memberMiddleware.verifyNumberByProject, memberController.create_a_member);
 
 }
