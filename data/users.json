@@ -1,0 +1,28 @@
+[{
+    "school_id": "5fbe66d27169f001e687ae80",
+    "email": "sqy.ipssi@mail.fr",
+    "name": "SQY",
+    "password": "$2b$10$.SAeKYfN1Hwof3tzoEjOOOR9XbRjcosutfw2TB.Sti8Gwudm81Chq",
+    "__v": 0
+},
+{
+    "school_id": "5fbea876105c0a019341a4fb",
+    "email": "paris.ipssi@mail.fr",
+    "name": "PARIS",
+    "password": "$2b$10$.SAeKYfN1Hwof3tzoEjOOOR9XbRjcosutfw2TB.Sti8Gwudm81Chq",
+    "__v": 0
+},
+{
+    "school_id": "5fbeace191fd6101f5f2f0bb",
+    "email": "toronto.ipssi@mail.fr",
+    "name": "TORONTO",
+    "password": "$2b$10$.SAeKYfN1Hwof3tzoEjOOOR9XbRjcosutfw2TB.Sti8Gwudm81Chq",
+    "__v": 0
+},
+{
+    "school_id": "5fbeaf609f50b4023b2598bf",
+    "email": "mlv.ipssi@mail.fr",
+    "name": "MLV",
+    "password": "$2b$10$.SAeKYfN1Hwof3tzoEjOOOR9XbRjcosutfw2TB.Sti8Gwudm81Chq",
+    "__v": 0
+}]

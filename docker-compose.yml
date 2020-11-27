@@ -5,6 +5,14 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    depends_on:
+      - mongo_import
+  mongo_import:
+    container_name: mongo_import
+    image: mongo
+    volumes:
+      - ./data:/data
+    command: /data/import.sh
   api: 
     container_name: api
     build: ./api
@@ -22,5 +30,6 @@ services:
       - '8080:8080'
     environment:
       API_URL: $URL_SWAGGER
+    
 
 
