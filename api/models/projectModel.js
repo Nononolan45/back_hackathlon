@@ -36,6 +36,10 @@ let projectSchema = new Schema({
     school_id: {
         type: String,
         required: "L'identifiant de l'école est requis"
+    },
+    created_at: {
+        type: Date, 
+        default: Date.now
     }
 });
 

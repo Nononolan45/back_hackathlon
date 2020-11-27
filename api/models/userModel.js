@@ -26,6 +26,17 @@ let userSchema = new Schema({
 userSchema.pre('save', function (next) {
     this.password = bcryptProvider.cryptPassword(this.password, 10);
     next();
-})
+});
+
+userSchema.pre('findOneAndUpdate', function (next) {
+    if (this.getUpdate().hasOwnProperty('password')) {
+        let data = this.getUpdate();
+        data.password = bcryptProvider.cryptPassword(data.password, 10);
+        this.update({}, data).exec();
+
+    }
+    next();
+});
+
 
 module.exports = mongoose.model('User', userSchema);

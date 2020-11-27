@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const routeProvider = require('../providers/route');
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -9,15 +11,14 @@ exports.verify_token = (req, res, next) => {
     if(typeof token != 'undefined'){
         jwt.verify(token, JWT_SECRET, (error) => {
             if(error){
-                res.sendStatus(403);
+                routeProvider.generateError(403, 'Accès interdit', res);
             }else{
                 next();
             }
         });
     }
     else {
-        res.status(403);
-        res.json({message: 'Accès interdit'});
+        routeProvider.generateError(403, 'Accès interdit', res);
     }
 }
 

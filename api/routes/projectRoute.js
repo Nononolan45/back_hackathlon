@@ -1,5 +1,7 @@
 module.exports = (server) => {
     const projectController = require('../controllers/projectController');
+    const projectMiddleware = require('../middleware/projectMiddleware');
+    const jwtMiddleware = require('../middleware/jwtMiddleware')
 
 
 
@@ -10,7 +12,7 @@ module.exports = (server) => {
 
 
     server.route('/projects/:project_id')
-        .get(projectController.get_a_project)
+        .get(jwtMiddleware.verify_token, projectMiddleware.verifyUsserIsAttachedToSchool, projectController.get_a_project)
         .put(projectController.update_a_project)
         .delete(projectController.delete_a_project);
 
