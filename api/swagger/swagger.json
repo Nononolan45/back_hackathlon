@@ -5,9 +5,9 @@
     "version": "0.1",
     "title": "Documentation de l'API"
   },
-  "components" : {
-    "securitySchemes" : {
-      "JWT" : {
+  "components": {
+    "securitySchemes": {
+      "JWT": {
         "type": "apiKey",
         "name": "Authorization",
         "in": "header"
@@ -48,12 +48,10 @@
                   "name": {
                     "type": "string",
                     "description": "Lieu de l'école",
-                    "required": true
                   },
                   "location": {
                     "type": "string",
                     "description": "Le nom de l'école",
-                    "required": true
                   }
                 },
                 "required": [
@@ -130,19 +128,13 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "Lieu de l'école",
-                    "required": false
+                    "description": "Lieu de l'école"
                   },
                   "location": {
                     "type": "string",
-                    "description": "Le nom de l'école",
-                    "required": false
+                    "description": "Le nom de l'école"
                   }
-                },
-                "required": [
-                  "name",
-                  "location"
-                ]
+                }
               }
             }
           }
@@ -289,7 +281,8 @@
                 },
                 "required": [
                   "name",
-                  "location"
+                  "email",
+                  "password"
                 ]
               }
             }
@@ -384,23 +377,16 @@
                   "name": {
                     "type": "string",
                     "description": "Nom utilisateur",
-                    "required": false
                   },
                   "email": {
                     "type": "string",
                     "description": "Email utilisateur",
-                    "required": false
                   },
                   "password": {
                     "type": "string",
                     "description": "Mot de passe utilisateur",
-                    "required": false
                   }
-                },
-                "required": [
-                  "name",
-                  "location"
-                ]
+                }
               }
             }
           }
@@ -544,7 +530,7 @@
                   }
                 },
                 "required": [
-                  "email", 
+                  "email",
                   "password"
                 ]
               }
@@ -589,43 +575,41 @@
                 "properties": {
                   "response_one": {
                     "type": "string",
-                    "description": "Première réponse",
-                    "required": true
+                    "description": "Première réponse"
                   },
                   "response_two": {
                     "type": "string",
-                    "description": "Seconde réponse",
-                    "required": true
+                    "description": "Seconde réponse"
                   },
                   "response_three": {
                     "type": "string",
-                    "description": "Troisième réponse",
-                    "required": true
+                    "description": "Troisième réponse"
                   },
                   "response_four": {
                     "type": "string",
-                    "description": "Quatrième réponse",
-                    "required": true
+                    "description": "Quatrième réponse"
                   },
                   "response_five": {
                     "type": "string",
-                    "description": "Cinquième réponse",
-                    "required": true
+                    "description": "Cinquième réponse"
                   },
                   "about": {
                     "type": "string",
-                    "description": "A propos de l'équipe",
-                    "required": true
+                    "description": "A propos de l'équipe"
                   },
                   "name": {
                     "type": "string",
-                    "description": "Nom de l'équipe",
-                    "required": true
+                    "description": "Nom de l'équipe"
                   }
                 },
                 "required": [
+                  "response_one",
+                  "response_two",
+                  "response_three",
+                  "response_four",
+                  "response_five",
                   "name",
-                  "location"
+                  "about"
                 ]
               }
             }
@@ -760,44 +744,33 @@
                 "properties": {
                   "response_one": {
                     "type": "string",
-                    "description": "Première réponse",
-                    "required": true
+                    "description": "Première réponse"
                   },
                   "response_two": {
                     "type": "string",
-                    "description": "Seconde réponse",
-                    "required": true
+                    "description": "Seconde réponse"
                   },
                   "response_three": {
                     "type": "string",
-                    "description": "Troisième réponse",
-                    "required": true
+                    "description": "Troisième réponse"
                   },
                   "response_four": {
                     "type": "string",
-                    "description": "Quatrième réponse",
-                    "required": true
+                    "description": "Quatrième réponse"
                   },
                   "response_five": {
                     "type": "string",
-                    "description": "Cinquième réponse",
-                    "required": true
+                    "description": "Cinquième réponse"
                   },
                   "about": {
                     "type": "string",
-                    "description": "A propos de l'équipe",
-                    "required": true
+                    "description": "A propos de l'équipe"
                   },
                   "name": {
                     "type": "string",
-                    "description": "Nom de l'équipe",
-                    "required": true
+                    "description": "Nom de l'équipe"
                   }
-                },
-                "required": [
-                  "name",
-                  "location"
-                ]
+                }
               }
             }
           }
@@ -951,8 +924,10 @@
                   }
                 },
                 "required": [
-                  "name",
-                  "location"
+                  "last_name",
+                  "first_name",
+                  "email",
+                  "phone_number"
                 ]
               }
             }
@@ -1049,29 +1024,21 @@
                 "properties": {
                   "last_name": {
                     "type": "string",
-                    "description": "Nom de famille",
-                    "required": true
+                    "description": "Nom de famille"
                   },
                   "first_name": {
                     "type": "string",
-                    "description": "Prénom",
-                    "required": true
+                    "description": "Prénom"
                   },
                   "email": {
                     "type": "string",
-                    "description": "Email",
-                    "required": true
+                    "description": "Email"
                   },
                   "phone_number": {
                     "type": "string",
-                    "description": "Numéro de teléphone au format : +33123456789",
-                    "required": true
+                    "description": "Numéro de teléphone au format : +33123456789"
                   }
-                },
-                "required": [
-                  "name",
-                  "location"
-                ]
+                }
               }
             }
           }

@@ -27,26 +27,31 @@ exports.list_all_projects_always_available = (req, res) => {
                 routeProvider.generateError(500, 'Erreur serveur', res);
             }
             else {
-
                 let projectsFilter = [];
-                projects.forEach((project) => {
+                if (projects.length > 0) {
                     let i = 0;
-                    Member.find(
-                        { project_id: project.id },
-                        (error, members) => {
-                            i++;
-                            if (error) {
-                                routeProvider.generateError(500, 'Erreur serveur', res);
-                            }
-                            else if (members.length != 5) {
-                                projectsFilter.push(project);
-                                if (i === projects.length) {
-                                    routeProvider.generateSuccess(200, projectsFilter, res);
-
+                    projects.forEach((project) => {
+                        Member.find(
+                            { project_id: project.id },
+                            (error, members) => {
+                                i++;
+                                if (error) {
+                                    routeProvider.generateError(500, 'Erreur serveur', res);
                                 }
-                            }
-                        });
-                });
+                                else if (members.length != 5) {
+                                    projectsFilter.push(project);
+                                    if (i === projects.length) {
+                                        routeProvider.generateSuccess(200, projectsFilter, res);
+
+                                    }
+                                }
+                            });
+                    });
+                } else {
+                    routeProvider.generateSuccess(200, [], res);
+
+                }
+
 
             }
         });
