@@ -38,9 +38,9 @@ exports.list_all_projects_always_available = (req, res) => {
                             if (error) {
                                 routeProvider.generateError(500, 'Erreur serveur', res);
                             }
-                            else if(members.length != 5) {
+                            else if (members.length != 5) {
                                 projectsFilter.push(project);
-                                if(i === projects.length) {
+                                if (i === projects.length) {
                                     routeProvider.generateSuccess(200, projectsFilter, res);
 
                                 }
