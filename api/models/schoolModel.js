@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 let schoolSchema = new Schema({
     name: {
         type: String,
-        required: "Le nom est requis"
+        required: "Le nom est requis",
+        unique: true
     },
     location: {
         type: String,
-        required: "La localisation est requise",
-        unique: true
+        required: "La localisation est requise"
     }
 });
 
