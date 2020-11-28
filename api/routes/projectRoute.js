@@ -10,6 +10,9 @@ module.exports = (server) => {
         .get(projectController.list_all_projects)
         .post(projectController.create_a_project);
 
+    server.route('/schools/:school_id/projects_available')
+        .get(projectController.list_all_projects_always_available)
+
 
     server.route('/projects/:project_id')
         .get(jwtMiddleware.verify_token, projectMiddleware.verifyUsserIsAttachedToSchool, projectController.get_a_project)

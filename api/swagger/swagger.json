@@ -5,6 +5,15 @@
     "version": "0.1",
     "title": "Documentation de l'API"
   },
+  "components" : {
+    "securitySchemes" : {
+      "JWT" : {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
   "tags": [
     {
       "name": "schools",
@@ -508,6 +517,64 @@
         }
       }
     },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Connexion d'un utilisateur",
+        "produces": [
+          "application/json"
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Adresse mail",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Mot de passe",
+                    "required": false
+                  }
+                },
+                "required": [
+                  "email", 
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retour de la donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/token"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/schools/{school_id}/projects": {
       "post": {
         "tags": [
@@ -603,6 +670,47 @@
           "projects"
         ],
         "summary": "Récuperer la liste des  projets",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "school_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifiant de l'école"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retour de la liste de donnée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/projectList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retour d'erreur",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/errorApi"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schools/{school_id}/projects_available": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Récupérer la liste des  projets où la limite de membre n'est pas atteint",
         "parameters": [
           {
             "in": "path",
@@ -764,6 +872,9 @@
         }
       },
       "get": {
+        "security": {
+          "JWT": []
+        },
         "tags": [
           "projects"
         ],
@@ -882,6 +993,9 @@
         }
       },
       "get": {
+        "security": {
+          "JWT": []
+        },
         "tags": [
           "members"
         ],
@@ -1076,6 +1190,14 @@
     }
   },
   "definitions": {
+    "token": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
     "school": {
       "type": "object",
       "properties": {

@@ -6,8 +6,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 
 exports.verify_token = (req, res, next) => {
+    console.log('on passe ici');
     let token = req.headers['authorization'];
-
+    console.log(req.headers);
     if(typeof token != 'undefined'){
         jwt.verify(token, JWT_SECRET, (error) => {
             if(error){
