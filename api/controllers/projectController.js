@@ -1,5 +1,6 @@
 const School = require('../models/schoolModel');
 const Project = require('../models/projectModel');
+const Member = require('../models/memberModel');
 
 
 const routeProvider = require('../providers/route');
@@ -17,6 +18,45 @@ exports.list_all_projects = (req, res) => {
             }
         });
 }
+
+exports.list_all_projects_always_available = (req, res) => {
+    Project.find(
+        { school_id: req.params.school_id },
+        (error, projects) => {
+            if (error) {
+                routeProvider.generateError(500, 'Erreur serveur', res);
+            }
+            else {
+                let projectsFilter = [];
+                if (projects.length > 0) {
+                    let i = 0;
+                    projects.forEach((project) => {
+                        Member.find(
+                            { project_id: project.id },
+                            (error, members) => {
+                                i++;
+                                if (error) {
+                                    routeProvider.generateError(500, 'Erreur serveur', res);
+                                }
+                                else if (members.length != 5) {
+                                    projectsFilter.push(project);
+                                    if (i === projects.length) {
+                                        routeProvider.generateSuccess(200, projectsFilter, res);
+
+                                    }
+                                }
+                            });
+                    });
+                } else {
+                    routeProvider.generateSuccess(200, [], res);
+
+                }
+
+
+            }
+        });
+}
+
 
 exports.create_a_project = (req, res) => {
     School.findById(

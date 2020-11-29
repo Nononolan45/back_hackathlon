@@ -23,7 +23,6 @@ server.use(cors(corsOptions));
 
 server.use(express.static('swagger'));
 
-
 const memberRoute = require('./routes/memberRoute');
 memberRoute(server);
 
