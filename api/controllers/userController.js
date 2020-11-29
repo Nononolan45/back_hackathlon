@@ -62,6 +62,8 @@ exports.delete_an_user = (req, res) => {
 }
 
 exports.login_an_user = (req, res) => {
+
+    const JWT_SECRET = process.env.JWT_SECRET|| '123456789';
     User.findOne({ email: req.body.email }, (error, user) => {
         {
             if (error) {
@@ -70,7 +72,7 @@ exports.login_an_user = (req, res) => {
             else if (user) {
                 if (bcryptProvider.verifyPassword(req.body.password, user.password)) {
                     jwt.sign({ email: user.email, name: user.name, user_id: user.id, school_id: user.school_id },
-                        process.env.JWT_SECRET,
+                        JWT_SECRET,
                         { expiresIn: '30 days' },
                         (error, token) => {
                             if (error) {
