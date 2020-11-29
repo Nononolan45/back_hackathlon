@@ -23,25 +23,6 @@ server.use(cors(corsOptions));
 
 server.use(express.static('swagger'));
 
-const swaggerUi = require('swagger-ui-express'); 
-
-const optionSwagger = {
-  swaggerOptions: { 
-    url: process.env.URL_SWAGGER,
-    requestInterceptor: function(req) {
-      console.log('--------------------------------------------------------------');
-      req.headers.Authorization = "Bearer xxxxxxx"
-      return req
-    }
-  }
-}
-server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, optionSwagger),(req,res, next) => {
-  console.log(req);
-});
-
-swaggerUi
-
-
 const memberRoute = require('./routes/memberRoute');
 memberRoute(server);
 
