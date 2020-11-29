@@ -886,7 +886,17 @@
                 }
               }
             }
-          }
+          },
+          "401": {
+            "description": "Acces non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/unanthorizedApi"
+                }
+              }
+            }
+          },
         }
       }
     },
@@ -993,6 +1003,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/definitions/memberList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Acces non autorisé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/unanthorizedApi"
                 }
               }
             }
@@ -1276,6 +1296,14 @@
       }
     },
     "errorApi": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "unanthorizedApi": {
       "type": "object",
       "properties": {
         "message": {
