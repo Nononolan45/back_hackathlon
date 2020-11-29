@@ -16,8 +16,14 @@ Cette API REST permet la gestion des données pour l'hackathon
 
 ## Composition de docker
 
-- Container 1 : NODEJS + YARN + EXPRESSION
+- Container 1 : NODEJS + YARN + EXPRESS
 - Container 2 : MONGODB
 - Contianer 3 : MONGODB pour l'importation de données
 - Contianer 4 : SWAGGER-UI 
+
+## Commande principale docker
+
+- Stopper container ``` docker-compose stop ```
+- Redémarrer container ``` docker-compose restart ```
+- Eteindre container ``` docker-compose down ```
 
