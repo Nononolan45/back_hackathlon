@@ -1,5 +1,16 @@
 version: '3.6'
 services:
+  api: 
+    container_name: api
+    build: ./api
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./api:/app
+    depends_on: 
+      - mongo
+    env_file:
+      - .env
   mongo:
     container_name: mongo
     image: mongo
@@ -13,17 +24,7 @@ services:
     volumes:
       - ./data:/data
     command: /data/import.sh
-  api: 
-    container_name: api
-    build: ./api
-    ports: 
-      - "3000:3000"
-    volumes:
-      - ./api:/app
-    depends_on: 
-      - mongo
-    env_file:
-      - .env
+  
   swagger:
     image: swaggerapi/swagger-ui
     ports:
