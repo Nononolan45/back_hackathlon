@@ -9,7 +9,7 @@ let memberSchema = new Schema({
     },
     first_name: {
         type: String,
-        required: "La rprénom est requis"
+        required: "Le prénom est requis"
     },
     email: {
         type: String,

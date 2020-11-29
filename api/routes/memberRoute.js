@@ -5,6 +5,7 @@ module.exports = (server) => {
     const jwtMiddleware = require('../middleware/jwtMiddleware');
 
 
+    // generate all route for CRUD member
     server.route('/members/:member_id')
         .get(memberController.get_a_member)
         .put(memberController.update_a_member)

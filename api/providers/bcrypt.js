@@ -1,6 +1,8 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-exports.cryptPassword = (password, salt ) => {
+// with bcrypt , cryppt and verify password user 
+
+exports.cryptPassword = (password, salt) => {
     return bcrypt.hashSync(password, salt);
 }
 
