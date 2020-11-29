@@ -2,8 +2,8 @@ const express = require('express');
 const server = express();
 
 
-const hostname = '0.0.0.0';
-const PORT = 3000;
+const hostname = process.env.HOSTNAME || 'localhost';
+const PORT = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://mongo/hackathlon');

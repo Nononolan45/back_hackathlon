@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const routeProvider = require('../providers/route');
 
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET|| '123456789';
 
 
 exports.verify_token = (req, res, next) => {
