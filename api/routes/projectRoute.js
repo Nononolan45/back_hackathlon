@@ -4,6 +4,7 @@ module.exports = (server) => {
     const jwtMiddleware = require('../middleware/jwtMiddleware')
 
 
+    // generate all route for CRUD project
 
 
     server.route('/schools/:school_id/projects')
